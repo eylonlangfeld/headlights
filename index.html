@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>אילון - דיטיילינג פנסים עד הבית</title>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --main-blue: #1a2a44;
+            --accent-gold: #c5a059;
+            --light-gray: #f4f4f4;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Assistant', sans-serif;
+            margin: 0;
+            background-color: var(--white);
+            color: var(--main-blue);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--main-blue);
+            color: var(--white);
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        header h1 { margin: 0; font-size: 2.8rem; }
+        header p { font-size: 1.3rem; opacity: 0.9; margin-top: 15px; }
+
+        .container { max-width: 1100px; margin: auto; padding: 20px; }
+
+        .section { margin-bottom: 60px; text-align: center; }
+        .section h2 { border-bottom: 3px solid var(--accent-gold); display: inline-block; padding-bottom: 10px; margin-bottom: 40px; font-size: 2rem; }
+
+        /* גלריית 4 רכבים - לפני/אחרי */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 25px;
+        }
+
+        .gallery-item {
+            background: var(--light-gray);
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .gallery-item img { width: 100%; border-radius: 8px; display: block; }
+        .gallery-item p { font-weight: bold; margin-bottom: 10px; font-size: 1.1rem; }
+
+        /* יתרונות */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            background: var(--main-blue);
+            color: var(--white);
+            padding: 50px 25px;
+            border-radius: 20px;
+        }
+
+        .feature-box h3 { color: var(--accent-gold); }
+
+        /* אזור 5 המלצות בוואטסאפ */
+        .testimonials-wrapper {
+            display: flex;
+            overflow-x: auto;
+            gap: 20px;
+            padding: 20px 10px;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .testimonial-card {
+            flex: 0 0 280px;
+            scroll-snap-align: start;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            overflow: hidden;
+        }
+
+        .testimonial-card img { width: 100%; height: auto; display: block; }
+
+        /* כפתור וואטסאפ צף */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 25px;
+            left: 25px;
+            background-color: #25d366;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            z-index: 1000;
+            transition: transform 0.3s;
+        }
+        .whatsapp-btn:hover { transform: scale(1.05); }
+
+        .cta-button {
+            background-color: var(--accent-gold);
+            color: var(--main-blue);
+            padding: 18px 50px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.4rem;
+            display: inline-block;
+            margin-top: 25px;
+            box-shadow: 0 4px 10px rgba(197, 160, 89, 0.4);
+        }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 2rem; }
+            .gallery { grid-template-columns: 1fr; }
+            .gallery-item { min-max: 100%; }
+        }
+		/* לייטבוקס - מסך שחור לתמונה מוגדלת */
+.lightbox {
+    display: none; position: fixed; z-index: 2000; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.9); justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s;
+}
+.lightbox.active { display: flex; opacity: 1; }
+.lightbox-content { max-width: 90%; max-height: 80%; border-radius: 10px; transform: scale(0.9); transition: transform 0.3s; }
+.lightbox.active .lightbox-content { transform: scale(1); }
+.close-lightbox { position: absolute; top: 20px; right: 30px; color: white; font-size: 40px; cursor: pointer; }
+.testimonial-card { cursor: pointer; transition: transform 0.2s; }
+.testimonial-card:hover { transform: scale(1.03); }
+
+.about-me {
+    max-width: 700px;
+    margin: 20px auto;
+    line-height: 1.8;
+    font-size: 1.1rem;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: right; /* יישור לימין לטקסט ארוך */
+}
+.zoomable-img {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.zoomable-img:hover {
+    transform: scale(1.02); /* אפקט הגדלה קטן ב-hover */
+}
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>אילון - דיטיילינג וחידוש פנסים</h1>
+    <p>מביא את הברק והבטיחות עד אליכם לחניה. עבודה מקצועית, תוצאות מוכחות.</p>
+	<div class="about-me">
+        <p>
+            נעים להכיר, אני אילון:)<p> הקמתי את העסק הזה כי זיהיתי צורך אמיתי: אנשים נרתעים מהטרחה שבנסיעה למוסך, מהמתנות ארוכות ומהחשש מעבודה לא יסודית שמתגלה רק בטסט. אני מאמין שחידוש פנסים לא צריך להיות "כיבוי שריפות" לפני מבחן הרישוי, אלא שירות מקצועי, נוח ונגיש שמשדרג את הבטיחות והמראה של הרכב לאורך כל השנה – והכל קורה אצלכם בחניה, בנחת ובזמן שנוח לכם.
+           
+        </p>
+    </div>
+    <a href="https://wa.me/972524492722" class="cta-button">תיאום חידוש בקליק!</a>
+</header>
+
+<div class="container">
+    
+    <section class="section">
+        <h2>תוצאות מהשטח (לפני ואחרי)</h2>
+        <div class="gallery">
+            <div class="gallery-item">
+                <p>קיה פיקנטו </p>
+                <img src="erez.png" onclick="openLightbox('erez.png')" style="cursor: pointer;">
+            </div>
+            <div class="gallery-item">
+                <p>טויוטה קורולה</p>
+                <img src="shemesh.png" onclick="openLightbox('shemesh.png')" style="cursor: pointer;">
+            </div>
+            <div class="gallery-item">
+                <p>מאזדה 3 </p>
+             <img src="digmi.png" onclick="openLightbox('digmi.png')" style="cursor: pointer;">
+            </div>
+            <div class="gallery-item">
+                <p>סקודה ראפיד </p>
+                <img src="azugi.png" onclick="openLightbox('azugi.png')" style="cursor: pointer;">
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="features">
+            <div class="feature-box">
+                <h3>למה לחכות לטסט?</h3>
+                <p>אל תגיעו ללחץ של הרגע האחרון. מחדשים היום ועוברים בראש שקט.</p>
+            </div>
+            <div class="feature-box">
+                <h3>חומרי פרימיום </h3>
+                <p>שימוש בחומרי פוליש מהאיכותיים ביותר בשוק לתוצאה שנשמרת.</p>
+            </div>
+            <div class="feature-box">
+                <h3>מקצוענות עד הבית</h3>
+                <p>השירות ניתן אצלכם בחניה, בלי נסיעות ובלי המתנה במוסכים.</p>
+            </div>
+        </div>
+    </section>
+
+  <section class="section">
+    <h2>מילה מלקוחות מרוצים</h2>
+    <p>(לחצו על ההמלצה להגדלה)</p>
+    <div class="testimonials-wrapper">
+        <div class="testimonial-card" onclick="openLightbox('ham goldis.png')"><img src="ham goldis.png"></div>
+        <div class="testimonial-card" onclick="openLightbox('ham biton.png')"><img src="ham biton.png"></div>
+        <div class="testimonial-card" onclick="openLightbox('ham yashar.png')"><img src="ham yashar.png"></div>
+        <div class="testimonial-card" onclick="openLightbox('hamla shemesh.png')"><img src="hamla shemesh.png"></div>
+        <div class="testimonial-card" onclick="openLightbox('ham achshush.png')"><img src="ham achshush.png"></div>
+		<div class="testimonial-card" onclick="openLightbox('ham eyal.png')"><img src="ham eyal.png"></div>
+		<div class="testimonial-card" onclick="openLightbox('ham digmi.png')"><img src="ham digmi.png"></div>
+		<div class="testimonial-card" onclick="openLightbox('ham gershoni.png')"><img src="ham gershoni.png"></div>
+    </div>
+</section>
+
+<div id="lightbox" class="lightbox" onclick="closeLightbox(event)">
+    <span class="close-lightbox">×</span>
+    <img id="lightbox-img" class="lightbox-content" src="">
+</div>
+
+<a href="https://wa.me/972524492722" class="whatsapp-btn">דברו איתי בוואטסאפ 💬</a>
+
+<script>
+    function openLightbox(src) {
+        document.getElementById('lightbox-img').src = src;
+        document.getElementById('lightbox').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox(e) {
+        if (e.target !== document.getElementById('lightbox-img')) {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+    }
+</script>
+</body>
+</html>
