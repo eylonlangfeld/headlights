@@ -88,20 +88,24 @@
         .testimonial-card img { width: 100%; height: auto; display: block; }
 
         /* כפתור וואטסאפ צף */
-        .whatsapp-btn {
+       /* כפתורים צפים */
+        .float-btn {
             position: fixed;
-            bottom: 25px;
             left: 25px;
-            background-color: #25d366;
-            color: white;
-            padding: 15px 30px;
+            padding: 15px 25px;
             border-radius: 50px;
             text-decoration: none;
             font-weight: bold;
             box-shadow: 0 6px 20px rgba(0,0,0,0.3);
             z-index: 1000;
             transition: transform 0.3s;
+            color: white;
+            display: block;
         }
+        .float-btn:hover { transform: scale(1.05); }
+
+        .whatsapp-btn { bottom: 25px; background-color: #25d366; }
+        .instagram-btn { bottom: 90px; background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
         .whatsapp-btn:hover { transform: scale(1.05); }
 
         .cta-button {
@@ -229,7 +233,8 @@
     <img id="lightbox-img" class="lightbox-content" src="">
 </div>
 
-<a href="https://wa.me/972524492722" class="whatsapp-btn">דברו איתי בוואטסאפ 💬</a>
+<a href="https://www.instagram.com/langfeld.shine" class="float-btn instagram-btn" target="_blank">אינסטגרם 📸</a>
+<a href="https://wa.me/972524492722" class="float-btn whatsapp-btn" target="_blank">וואטסאפ 💬</a>
 
 <script>
     function openLightbox(src) {
